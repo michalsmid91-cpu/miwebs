@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Miwebs.cz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000000;
+    --lime: #C8F060;
+    --lime-dark: #a8cc3a;
+    --white: #ffffff;
+    --cream: #F5F2EC;
+    --gray1: #111111;
+    --gray2: #1a1a1a;
+    --gray3: #2a2a2a;
+    --gray4: #3a3a3a;
+    --gray5: #888888;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ─── NAV ─── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #1a1a1a; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
+  .nav-logo-icon { width: 32px; height: 32px; }
+  .nav-logo-text { font-size: 1.1rem; font-weight: 600; color: var(--white); }
+  .nav-logo-text span { color: var(--lime); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.875rem; font-weight: 500; color: var(--gray5); transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta { background: var(--lime); color: var(--black) !important; padding: 0.5rem 1.1rem; border-radius: var(--radius-md); font-weight: 600 !important; font-size: 0.825rem !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--lime-dark) !important; }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; display: block; }
+
+  /* ─── PAGE HEADER ─── */
+  .page-header { padding: 120px 5% 80px; border-bottom: 1px solid var(--gray2); position: relative; overflow: hidden; }
+  .page-header::before { content: ''; position: absolute; top: -150px; right: -150px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(200,240,96,0.07) 0%, transparent 65%); }
+  .page-header-inner { position: relative; z-index: 1; max-width: 700px; }
+  .page-tag { font-size: 0.725rem; font-weight: 600; color: var(--lime); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
+  .page-header h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  .page-header p { font-size: 1rem; color: var(--gray5); max-width: 480px; line-height: 1.75; }
+
+  /* ─── SECTIONS ─── */
+  .section { padding: 100px 5%; }
+  .section-dark { background: var(--gray1); }
+  .section-cream { background: var(--cream); }
+
+  /* ─── COMING SOON ─── */
+  .coming-soon {
+    border: 1px solid var(--gray2);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .coming-soon-header {
+    background: var(--gray1);
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    border-bottom: 1px solid var(--gray2);
+  }
+
+  .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  .coming-soon-body {
+    background: var(--gray2);
+    height: 320px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .coming-soon-body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(200,240,96,0.015) 20px,
+      rgba(200,240,96,0.015) 21px
+    );
+  }
+
+  .coming-soon-label {
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+
+  .coming-soon-badge {
+    display: inline-block;
+    background: rgba(200,240,96,0.12);
+    border: 1px solid rgba(200,240,96,0.25);
+    color: var(--lime);
+    font-size: 0.75rem; font-weight: 600;
+    padding: 0.4rem 1rem; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .coming-soon-label p { font-size: 0.875rem; color: var(--gray5); }
+
+  .coming-soon-meta { padding: 1.25rem 1.5rem; background: var(--gray1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .coming-soon-type { font-size: 0.75rem; font-weight: 600; color: var(--lime); text-transform: uppercase; letter-spacing: 0.08em; }
+  .coming-soon-name { font-size: 0.95rem; font-weight: 500; color: var(--white); margin-top: 0.2rem; }
+  .coming-soon-tag { font-size: 0.75rem; color: var(--gray5); background: var(--gray2); padding: 0.3rem 0.7rem; border-radius: 20px; }
+
+  /* ─── PLACEHOLDER GRID ─── */
+  .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+  /* ─── SKUTEČNÉ KARTY (pro budoucí projekty) ─── */
+  .project-card { border: 1px solid var(--gray2); border-radius: var(--radius-xl); overflow: hidden; transition: border-color 0.25s, transform 0.25s; cursor: pointer; text-decoration: none; display: block; }
+  .project-card:hover { border-color: var(--gray4); transform: translateY(-4px); }
+  .project-img { height: 240px; background: var(--gray2); display: flex; align-items: center; justify-content: center; color: var(--gray5); font-size: 0.85rem; position: relative; overflow: hidden; }
+  .project-img.lime { background: linear-gradient(135deg, rgba(200,240,96,0.15) 0%, rgba(200,240,96,0.05) 100%); }
+  .project-img.gray { background: linear-gradient(135deg, var(--gray2) 0%, var(--gray3) 100%); }
+  .project-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.25s; display: flex; align-items: center; justify-content: center; }
+  .project-card:hover .project-overlay { background: rgba(0,0,0,0.4); }
+  .project-overlay-btn { background: var(--lime); color: var(--black); padding: 0.6rem 1.25rem; border-radius: var(--radius-md); font-size: 0.825rem; font-weight: 600; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; }
+  .project-card:hover .project-overlay-btn { opacity: 1; transform: translateY(0); }
+  .project-body { padding: 1.5rem; background: var(--gray1); }
+  .project-type { font-size: 0.7rem; font-weight: 600; color: var(--lime); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+  .project-name { font-size: 1.05rem; font-weight: 500; color: var(--white); margin-bottom: 0.35rem; }
+  .project-desc { font-size: 0.825rem; color: var(--gray5); line-height: 1.6; }
+
+  /* ─── TEASER BOX ─── */
+  .teaser-box {
+    background: var(--gray1);
+    border: 1px solid var(--gray2);
+    border-radius: var(--radius-xl);
+    padding: 4rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+    margin-top: 3rem;
+  }
+
+  .teaser-box::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(200,240,96,0.08) 0%, transparent 65%); }
+
+  .teaser-box h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 0.85rem; position: relative; z-index: 1; }
+  .teaser-box p { font-size: 0.95rem; color: var(--gray5); max-width: 440px; margin: 0 auto 2rem; line-height: 1.7; position: relative; z-index: 1; }
+
+  /* ─── TYPY WEBŮ ─── */
+  .types-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray2); border: 1px solid var(--gray2); border-radius: var(--radius-xl); overflow: hidden; }
+  .type-item { background: var(--black); padding: 2rem; transition: background 0.2s; }
+  .type-item:hover { background: var(--gray2); }
+  .type-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); margin-bottom: 1rem; }
+  .type-item h3 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+  .type-item p { font-size: 0.825rem; color: var(--gray5); line-height: 1.65; }
+
+  /* ─── REFERENCE QUOTE ─── */
+  .quote-box { background: var(--gray1); border: 1px solid var(--gray2); border-radius: var(--radius-xl); padding: 3rem; position: relative; }
+  .quote-mark { font-size: 4rem; color: var(--lime); line-height: 1; margin-bottom: 1rem; font-family: Georgia, serif; }
+  .quote-text { font-size: 1.1rem; color: var(--white); line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; }
+  .quote-author { display: flex; align-items: center; gap: 0.85rem; }
+  .quote-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(200,240,96,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600; color: var(--lime); }
+  .quote-name { font-size: 0.875rem; font-weight: 500; color: var(--white); }
+  .quote-role { font-size: 0.775rem; color: var(--gray5); }
+
+  /* ─── CTA ─── */
+  .cta-box { background: var(--lime); border-radius: var(--radius-xl); padding: 5rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+  .cta-box h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; color: var(--black); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .cta-box p { font-size: 1rem; color: rgba(0,0,0,0.6); line-height: 1.7; }
+  .btn-black { background: var(--black); color: var(--white); padding: 1rem 2rem; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 0.5rem; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .btn-black:hover { background: var(--gray3); transform: translateY(-2px); }
+  .btn-lime { background: var(--lime); color: var(--black); padding: 0.9rem 2rem; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; }
+  .btn-lime:hover { background: var(--lime-dark); transform: translateY(-2px); }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--gray1); border-top: 1px solid var(--gray2); padding: 3rem 5% 1.5rem; }
+  .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gray2); }
+  .footer-logo-text { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 0.6rem; }
+  .footer-logo-text span { color: var(--lime); }
+  .footer-brand p { font-size: 0.85rem; color: var(--gray5); line-height: 1.7; max-width: 240px; }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 600; color: var(--gray5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .footer-col a { display: block; font-size: 0.875rem; color: var(--gray5); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--gray4); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .types-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .cta-box { grid-template-columns: 1fr; padding: 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(0,0,0,0.98); padding: 1rem 1.25rem; gap: 0.75rem; border-bottom: 1px solid var(--gray2); z-index: 99; }
+    .nav-links.open { display: flex; }
+    .nav-hamburger { display: flex; }
+    .page-header { padding: 100px 1.25rem 60px; }
+    .section { padding: 70px 1.25rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .types-grid { grid-template-columns: 1fr; }
+    .teaser-box { padding: 2.5rem 1.5rem; }
+    .cta-box { padding: 2.5rem 1.5rem; grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" class="nav-logo-icon" alt="Miwebs logo">
+    <span class="nav-logo-text">Mi<span>webs</span>.cz</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="sluzby.html">Služby</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="cenik.html">Ceník</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+    <li><a href="kontakt.html" class="nav-cta">Chci web →</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <span class="page-tag">Naše práce</span>
+    <h1>Portfolio<br><span style="color:var(--lime);">teprve<br>vzniká</span></h1>
+    <p>Jsme na začátku — ale to neznamená že nemůžeme dělat skvělou práci. Váš web může být jednou z prvních ukázek. Za zvýhodněných podmínek.</p>
+  </div>
+</div>
+
+<!-- PLACEHOLDER PROJEKTY -->
+<section class="section">
+
+  <div style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+    <div>
+      <div style="font-size:0.725rem;font-weight:600;color:var(--lime);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem;">Připravujeme</div>
+      <div style="font-size:1.1rem;font-weight:500;color:var(--white);">První projekty v realizaci</div>
+    </div>
+    <div style="font-size:0.825rem;color:var(--gray5);">Aktualizujeme průběžně</div>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <div class="coming-soon">
+      <div class="coming-soon-header">
+        <div class="browser-dot" style="background:#ff5f57;"></div>
+        <div class="browser-dot" style="background:#ffbd2e;"></div>
+        <div class="browser-dot" style="background:#28c840;"></div>
+        <div style="flex:1;background:var(--gray2);border-radius:4px;height:22px;margin-left:0.5rem;"></div>
+      </div>
+      <div class="coming-soon-body">
+        <div class="coming-soon-label">
+          <div class="coming-soon-badge">Brzy zde</div>
+          <p>Realitní makléř · Praha-východ</p>
+        </div>
+      </div>
+      <div class="coming-soon-meta">
+        <div>
+          <div class="coming-soon-type">Firemní web</div>
+          <div class="coming-soon-name">Realitní makléř</div>
+        </div>
+        <div class="coming-soon-tag">V realizaci</div>
+      </div>
+    </div>
+
+    <div class="coming-soon">
+      <div class="coming-soon-header">
+        <div class="browser-dot" style="background:#ff5f57;"></div>
+        <div class="browser-dot" style="background:#ffbd2e;"></div>
+        <div class="browser-dot" style="background:#28c840;"></div>
+        <div style="flex:1;background:var(--gray2);border-radius:4px;height:22px;margin-left:0.5rem;"></div>
+      </div>
+      <div class="coming-soon-body">
+        <div class="coming-soon-label">
+          <div class="coming-soon-badge">Brzy zde</div>
+          <p>Fotbalový klub · Středočeský kraj</p>
+        </div>
+      </div>
+      <div class="coming-soon-meta">
+        <div>
+          <div class="coming-soon-type">Web pro spolek</div>
+          <div class="coming-soon-name">Sportovní klub</div>
+        </div>
+        <div class="coming-soon-tag">V realizaci</div>
+      </div>
+    </div>
+
+    <div class="coming-soon">
+      <div class="coming-soon-header">
+        <div class="browser-dot" style="background:#ff5f57;"></div>
+        <div class="browser-dot" style="background:#ffbd2e;"></div>
+        <div class="browser-dot" style="background:#28c840;"></div>
+        <div style="flex:1;background:var(--gray2);border-radius:4px;height:22px;margin-left:0.5rem;"></div>
+      </div>
+      <div class="coming-soon-body">
+        <div class="coming-soon-label">
+          <div class="coming-soon-badge">Brzy zde</div>
+          <p>Fotbalový trenér · Brandýs n.L.</p>
+        </div>
+      </div>
+      <div class="coming-soon-meta">
+        <div>
+          <div class="coming-soon-type">Web se rezervacemi</div>
+          <div class="coming-soon-name">Sportovní trenér</div>
+        </div>
+        <div class="coming-soon-tag">V realizaci</div>
+      </div>
+    </div>
+
+    <div class="coming-soon">
+      <div class="coming-soon-header">
+        <div class="browser-dot" style="background:#ff5f57;"></div>
+        <div class="browser-dot" style="background:#ffbd2e;"></div>
+        <div class="browser-dot" style="background:#28c840;"></div>
+        <div style="flex:1;background:var(--gray2);border-radius:4px;height:22px;margin-left:0.5rem;"></div>
+      </div>
+      <div class="coming-soon-body">
+        <div class="coming-soon-label">
+          <div class="coming-soon-badge">Vaše místo</div>
+          <p>Tady může být váš projekt</p>
+        </div>
+      </div>
+      <div class="coming-soon-meta">
+        <div>
+          <div class="coming-soon-type">Váš web</div>
+          <div class="coming-soon-name">Malá firma nebo živnostník</div>
+        </div>
+        <a href="kontakt.html" style="font-size:0.775rem;color:var(--lime);text-decoration:none;font-weight:500;">Mám zájem →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="teaser-box">
+    <h2>Buďte mezi prvními</h2>
+    <p>Právě dokončujeme první projekty. Klienti kteří se ozvou nyní, získají zvýhodněnou cenu a osobní přístup.</p>
+    <a href="kontakt.html" class="btn-lime">Chci být první →</a>
+  </div>
+</section>
+
+<!-- CO UMÍME -->
+<section class="section section-dark">
+  <div style="margin-bottom:4rem;">
+    <div style="font-size:0.725rem;font-weight:600;color:var(--lime);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;">Co tvoříme</div>
+    <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1.1;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.25rem;">Typy webů<br>které zvládáme</h2>
+    <p style="font-size:1rem;color:var(--gray5);max-width:520px;line-height:1.7;">Žádný projekt není stejný — přizpůsobujeme se vašim potřebám.</p>
+  </div>
+  <div class="types-grid">
+    <div class="type-item">
+      <div class="type-dot"></div>
+      <h3>Vizitka / Jednostránkový web</h3>
+      <p>Ideální pro živnostníky a freelancery. Rychle, přehledně, s kontaktním formulářem.</p>
+    </div>
+    <div class="type-item">
+      <div class="type-dot"></div>
+      <h3>Firemní web</h3>
+      <p>Více stránek, galerie, blog, reference. Komplexní prezentace vašeho byznysu.</p>
+    </div>
+    <div class="type-item">
+      <div class="type-dot"></div>
+      <h3>Web s rezervačním systémem</h3>
+      <p>Pro trenéry, kadeřníky, kosmetičky. Online rezervace bez telefonování.</p>
+    </div>
+    <div class="type-item">
+      <div class="type-dot"></div>
+      <h3>Web pro klub nebo spolek</h3>
+      <p>Výsledky, tým, aktuality, fotogalerie. Vše co sportovní klub potřebuje.</p>
+    </div>
+    <div class="type-item">
+      <div class="type-dot"></div>
+      <h3>Landing page</h3>
+      <p>Cílená stránka pro konkrétní produkt nebo kampaň. Maximální konverze.</p>
+    </div>
+    <div class="type-item">
+      <div class="type-dot"></div>
+      <h3>Redesign stávajícího webu</h3>
+      <p>Máte web ale nevypadá dobře nebo nefunguje? Dáme mu nový život.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="cta-box">
+    <div>
+      <h2>Váš web může být první v portfoliu</h2>
+      <p>Ozvěte se — domluvíme se na podmínkách a začneme hned.</p>
+    </div>
+    <a href="kontakt.html" class="btn-black">Nezávazná poptávka →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-text">Mi<span>webs</span>.cz</div>
+      <p>Tvorba webových stránek a webový design pro malé firmy a živnostníky.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigace</h4>
+      <a href="sluzby.html">Služby</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="cenik.html">Ceník</a>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+    <div class="footer-col">
+      <h4>Služby</h4>
+      <a href="sluzby.html#tvorba">Tvorba webů</a>
+      <a href="sluzby.html#design">Webdesign</a>
+      <a href="sluzby.html#sprava">Správa webů</a>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <a href="mailto:info@miwebs.cz">info@miwebs.cz</a>
+      <a href="tel:+420000000000">+420 XXX XXX XXX</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Miwebs.cz</span>
+    <span>GDPR · Ochrana osobních údajů</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
